@@ -13,6 +13,18 @@
         android:theme="@style/Theme.Student_hacks"
         tools:targetApi="31">
         <activity
+            android:name=".profile_activity.ProfileActivity"
+            android:parentActivityName=".Main_page_activity.MainPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Language_exchange_activity.LanguageExchangeActivity"
+            android:exported="false"
+            android:parentActivityName=".Main_page_activity.MainPageActivity" />
+        <activity
+            android:name=".Cultural_diary_activity.CulturalDiaryActivity"
+            android:exported="false"
+            android:parentActivityName=".Main_page_activity.MainPageActivity" />
+        <activity
             android:name=".Main_page_activity.MainPageActivity"
             android:exported="false" />
         <activity

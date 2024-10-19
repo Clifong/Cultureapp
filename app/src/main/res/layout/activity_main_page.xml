@@ -27,13 +27,14 @@
             android:id="@+id/main_page_bottom_menu_bar"
             android:layout_width="404dp"
             android:layout_height="80dp"
-            app:layout_anchor="@+id/main_page_bottom_menu_bar"
+            app:labelVisibilityMode="labeled"
             app:layout_anchorGravity="bottom"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/main_page_bottom_bar"
             tools:layout_conversion_absoluteHeight="103dp"
-            tools:layout_conversion_absoluteWidth="411dp"
-            tools:layout_editor_absoluteX="7dp" />
+            tools:layout_conversion_absoluteWidth="411dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
