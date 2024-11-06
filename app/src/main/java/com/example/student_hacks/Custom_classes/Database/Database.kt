@@ -1,10 +1,38 @@
 package com.example.student_hacks.Custom_classes.Database
 
-import io.github.jan.supabase.SupabaseClient
+abstract class Database {
 
-abstract class Database(supabase: SupabaseClient) {
+    companion object Db {
+        lateinit var database : Database
 
-    fun getCredential(id: Int) {}
+        fun setDatabase(database: Database) {
+            this.database = database
+        }
 
-    fun getFriendList(id: Int) {}
+        fun getCredential(id: Int) {
+            database.getCredential(id)
+        }
+
+        fun getFriendList(id: Int) {
+            database.getFriendList(id)
+        }
+        
+        fun signUp(email: String, password: String) {
+            database.signup(email, password)
+        }
+        
+        fun signIn(email: String, password: String) {
+            database.signIn(email, password)
+        }
+    }
+
+    abstract fun signIn(email: String, password: String)
+
+    abstract fun signup(email: String, password: String)
+
+    abstract fun getFriendList(id: Int)
+
+    abstract fun getCredential(id: Int)
+    
+
 }
