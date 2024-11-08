@@ -2,11 +2,13 @@ package com.example.student_hacks.Login_activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.student_hacks.Custom_classes.Database.Database
+import com.example.student_hacks.Custom_classes.Exceptions.DatabaseException
 import com.example.student_hacks.Main_page_activity.MainPageActivity
 import com.example.student_hacks.R
 
@@ -34,9 +36,9 @@ class EmailRegisterActivity : AppCompatActivity() {
             else {
                 try {
                     Database.signUp(registerEmailField.text.toString(), registerPasswordField.text.toString())
-//                    var intent = Intent(this, MainPageActivity::class.java)
-//                    startActivity(intent)
-                } catch (e : Exception) {
+                    var intent = Intent(this, MainPageActivity::class.java)
+                    startActivity(intent)
+                } catch (e : DatabaseException) {
                     Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
                 }
             }

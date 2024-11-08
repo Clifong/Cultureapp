@@ -1,6 +1,6 @@
 package com.example.student_hacks.Custom_classes.Database
 
-import com.google.firebase.database.core.Context
+import com.example.student_hacks.Custom_classes.Exceptions.DatabaseException
 
 abstract class Database {
 
@@ -12,19 +12,36 @@ abstract class Database {
         }
 
         fun getCredential(id: Int) {
-            database.getCredentialDb(id)
+            try {
+                database.getCredentialDb(id)
+            } catch (e: Exception) {
+                throw e
+            }
         }
 
         fun getFriendList(id: Int) {
-            database.getFriendListDb(id)
+            try {
+                database.getFriendListDb(id)
+            } catch (e: Exception) {
+                throw e
+            }
         }
-        
+
         fun signUp(email: String, password: String) {
-            database.signupDb(email, password)
+            try {
+                database.signupDb(email, password)
+            } catch (e: DatabaseException) {
+                println("E")
+                throw e
+            }
         }
         
         fun signIn(email: String, password: String) {
-            database.signInDb(email, password)
+            try {
+                database.signInDb(email, password)
+            } catch (e: Exception) {
+                throw e
+            }
         }
     }
 

@@ -4,6 +4,5 @@
     android:id="@+id/spinnerTextView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="20dp"
-    android:background="@drawable/background"
+    android:textSize="20sp"
     />
