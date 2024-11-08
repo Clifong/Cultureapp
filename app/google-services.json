@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "285028863606",
-    "project_id": "studenthack123123",
-    "storage_bucket": "studenthack123123.firebasestorage.app"
+    "project_number": "129794308410",
+    "firebase_url": "https://student-hacks-791bd-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "student-hacks-791bd",
+    "storage_bucket": "student-hacks-791bd.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:285028863606:android:2cd78aec0fa278026b9957",
+        "mobilesdk_app_id": "1:129794308410:android:5b01e0f6dc2aec14577803",
         "android_client_info": {
           "package_name": "com.example.student_hacks"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyACJEYInGuYgPJN5Imt66KrzfJ8mj5nNiE"
+          "current_key": "AIzaSyD7K66duGj0CSQpWgSDl_JJbOTFWhb_s6I"
         }
       ],
       "services": {

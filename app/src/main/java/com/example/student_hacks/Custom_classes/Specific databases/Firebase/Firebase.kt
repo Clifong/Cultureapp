@@ -5,6 +5,7 @@ import com.example.student_hacks.Custom_classes.Exceptions.SignInFailException
 import com.example.student_hacks.Custom_classes.Exceptions.SignUpFailException
 import com.example.student_hacks.Custom_classes.User.User
 import com.google.firebase.Firebase
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.database.FirebaseDatabase
@@ -32,7 +33,7 @@ class FirebaseDB : Database() {
         }
     }
 
-    override fun signIn(email: String, password: String) {
+    override fun signInDb(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             task ->
             if (!task.isSuccessful) {
@@ -41,7 +42,7 @@ class FirebaseDB : Database() {
         }
     }
 
-    override fun signup(email: String, password: String) {
+    override fun signupDb(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             task ->
             if (!task.isSuccessful) {
@@ -50,7 +51,7 @@ class FirebaseDB : Database() {
         }
     }
 
-    override fun getFriendList(id: Int) {
+    override fun getFriendListDb(id: Int) {
         db.collection("profile")
             .document(id.toString())
             .get()
@@ -62,7 +63,7 @@ class FirebaseDB : Database() {
             }
     }
 
-    override fun getCredential(id: Int) {
+    override fun getCredentialDb(id: Int) {
 
     }
 

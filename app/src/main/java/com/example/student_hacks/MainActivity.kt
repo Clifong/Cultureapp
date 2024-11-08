@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.example.student_hacks.Custom_classes.Database.Database
 import com.example.student_hacks.Custom_classes.Specific.FirebaseDB
 import com.example.student_hacks.Login_activity.EmailLoginActivity
+import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +28,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Database.setDatabase(FirebaseDB())
+        FirebaseApp.initializeApp(this)
+        Database.initDatabase(FirebaseDB())
 
         emailLoginButton = findViewById(R.id.login_via_email_button)
         emailLoginButton.setOnClickListener {

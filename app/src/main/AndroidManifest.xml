@@ -35,6 +35,10 @@ xmlns:tools="http://schemas.android.com/tools">
         android:name=".Login_activity.EmailLoginActivity"
         android:exported="false" />  <!-- Keep this false if it doesn't need to be launched from outside -->
 
+    <activity android:name=".Login_activity.EmailRegisterActivity"
+        android:exported="true"
+        android:parentActivityName=".Login_activity.EmailRegisterActivity"/>
+
     <activity
         android:name=".MainActivity"
         android:exported="true">

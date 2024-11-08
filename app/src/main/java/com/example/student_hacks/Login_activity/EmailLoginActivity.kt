@@ -45,10 +45,10 @@ class EmailLoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener() {
             if (emailLoginEditText.text.length == 0 || passwordLoginEditText.text.length == 0) {
                 //var snackbarPopup = Snackbar.make(this, "Empty email or psasword", Snackbar.LENGTH_SHORT)
-
+            } else {
+                var intent = Intent(this, MainPageActivity::class.java)
+                startActivity(intent)
             }
-            var intent = Intent(this, MainPageActivity::class.java)
-            startActivity(intent)
         }
     }
 }
