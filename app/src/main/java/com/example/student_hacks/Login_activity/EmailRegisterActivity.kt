@@ -34,15 +34,18 @@ class EmailRegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Email or password cannot be empty", Toast.LENGTH_SHORT).show()
             }
             else {
-                try {
-                    Database.signUp(registerEmailField.text.toString(), registerPasswordField.text.toString())
-                    var intent = Intent(this, MainPageActivity::class.java)
-                    startActivity(intent)
-                } catch (e : DatabaseException) {
-                    Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
-                }
+                Database.signUp(
+                    registerEmailField.text.toString(),
+                    registerPasswordField.text.toString(),
+                    onSuccess = {
+                        var intent = Intent(this, MainPageActivity::class.java)
+                        startActivity(intent)
+                    },
+                    onFailure = {
+                        e -> Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                )
             }
-
         }
     }
 }

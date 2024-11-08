@@ -1,13 +1,12 @@
 package com.example.student_hacks.Custom_classes.Exceptions
 
-open class DatabaseException : Exception() {
+open class DatabaseException(message : String) : Exception(message) {
+}
+
+class SignInFailException : DatabaseException("Email or password wrong!") {
 
 }
 
-class SignInFailException : DatabaseException() {
-
-}
-
-class SignUpFailException : DatabaseException() {
+class SignUpFailException : DatabaseException("Email already in use!") {
 
 }

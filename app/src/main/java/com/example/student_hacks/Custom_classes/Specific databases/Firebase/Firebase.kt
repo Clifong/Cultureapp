@@ -33,20 +33,24 @@ class FirebaseDB : Database() {
         }
     }
 
-    override fun signInDb(email: String, password: String) {
+    override fun signInDb(email: String, password: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             task ->
             if (!task.isSuccessful) {
-                throw SignInFailException()
+                onFailure(SignInFailException())
+            } else {
+                onSuccess()
             }
         }
     }
 
-    override fun signupDb(email: String, password: String) {
+    override fun signupDb(email: String, password: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             task ->
             if (!task.isSuccessful) {
-                throw SignUpFailException()
+                onFailure(SignUpFailException())
+            } else {
+                onSuccess()
             }
         }
     }

@@ -7,11 +7,13 @@ import android.text.style.UnderlineSpan
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.set
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.student_hacks.Custom_classes.Database.Database
 import com.example.student_hacks.MainActivity
 import com.example.student_hacks.Main_page_activity.MainPageActivity
 import com.example.student_hacks.R
@@ -46,8 +48,19 @@ class EmailLoginActivity : AppCompatActivity() {
             if (emailLoginEditText.text.length == 0 || passwordLoginEditText.text.length == 0) {
                 //var snackbarPopup = Snackbar.make(this, "Empty email or psasword", Snackbar.LENGTH_SHORT)
             } else {
-                var intent = Intent(this, MainPageActivity::class.java)
-                startActivity(intent)
+                Database.signIn(
+                    email = emailLoginEditText.text.toString(),
+                    password = passwordLoginEditText.text.toString(),
+                    onSuccess = {
+                        println("Okay")
+                        var intent = Intent(this, MainPageActivity::class.java)
+                        startActivity(intent)
+                    },
+                    onFailure = {
+                        e -> Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                )
+
             }
         }
     }
