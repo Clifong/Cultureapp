@@ -1,30 +1,14 @@
 package com.example.student_hacks.Custom_classes.Database
-
-import com.example.student_hacks.Custom_classes.Exceptions.DatabaseException
+import com.example.student_hacks.Custom_classes.User.User
 
 abstract class Database {
 
     companion object Db {
         lateinit var database : Database
+        lateinit var user : User
 
         fun initDatabase(database: Database) {
             this.database = database
-        }
-
-        fun getCredential(id: Int) {
-            try {
-                database.getCredentialDb(id)
-            } catch (e: Exception) {
-                throw e
-            }
-        }
-
-        fun getFriendList(id: Int) {
-            try {
-                database.getFriendListDb(id)
-            } catch (e: Exception) {
-                throw e
-            }
         }
 
         fun signUp(email: String, password: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
@@ -40,11 +24,16 @@ abstract class Database {
         fun signIn(email: String, password: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
                 database.signInDb(email, password,
                     onSuccess = {
+                        database.setUser()
                         onSuccess()
                     },
                     onFailure = {
                     e -> onFailure(e)
                 })
+        }
+
+        fun updateProfile(username: String, age : Int, country: String) {
+            database.updateProfle(username, age, country)
         }
     }
 
@@ -52,9 +41,10 @@ abstract class Database {
 
     abstract fun signupDb(email: String, password: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
 
-    abstract fun getFriendListDb(id: Int)
+    abstract fun setUser()
 
-    abstract fun getCredentialDb(id: Int)
+    abstract fun updateProfle(username: String, age : Int, country: String)
+
     
 
 }

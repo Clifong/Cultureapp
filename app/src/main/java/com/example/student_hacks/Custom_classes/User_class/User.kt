@@ -5,7 +5,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class User(
     val id: String,
+    val age: Int,
     val username: String,
+    val country : String,
+    val friendList: ArrayList<String>,
+    val postList: ArrayList<String>,
 ) {
 
 }

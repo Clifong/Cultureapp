@@ -32,18 +32,6 @@
         app:layout_constraintVertical_bias="0.027"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <Button
-        android:id="@+id/friendListButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Friend list"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.53"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.046" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="413dp"
@@ -59,7 +47,7 @@
         app:layout_constraintVertical_bias="0.459" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/profileUsernameEditText"
         android:layout_width="407dp"
         android:layout_height="39dp"
         android:ems="10"
@@ -83,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.048"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
+        app:layout_constraintTop_toBottomOf="@+id/profileUsernameEditText"
         app:layout_constraintVertical_bias="0.067" />
 
     <Spinner
@@ -120,7 +108,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:layout_constraintVertical_bias="0.086" />
     <Button
-        android:id="@+id/saveButton"
+        android:id="@+id/saveProfileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
