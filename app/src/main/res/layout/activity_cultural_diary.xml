@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/titleEditText"
         android:layout_width="412dp"
         android:layout_height="44dp"
         android:layout_marginTop="20dp"
@@ -55,10 +55,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/contentEditText"
         android:layout_width="412dp"
         android:layout_height="402dp"
         android:layout_marginTop="16dp"
@@ -73,14 +73,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/saveDiaryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Upload diary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+        app:layout_constraintTop_toBottomOf="@+id/contentEditText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

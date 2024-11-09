@@ -5,6 +5,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.student_hacks.Custom_classes.Database.Database
 import com.example.student_hacks.R
@@ -52,7 +53,13 @@ class ProfileActivity : AppCompatActivity() {
             Database.updateProfile(
                 username = usernameEditText.text.toString(),
                 age = ageSpinner.selectedItem as Int,
-                country = countrySpinner.selectedItem as String
+                country = countrySpinner.selectedItem as String,
+                onSuccess = {
+                    Toast.makeText(this, "Successfully updated profile!", Toast.LENGTH_SHORT).show()
+                },
+                onFailure = {
+                        e -> Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                }
             )
         })
     }

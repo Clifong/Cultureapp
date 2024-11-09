@@ -3,6 +3,7 @@ package com.example.student_hacks.Main_page_activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.student_hacks.Cultural_diary_activity.All_my_diary
 import com.example.student_hacks.Cultural_diary_activity.CulturalDiaryActivity
 import com.example.student_hacks.Language_exchange_activity.LanguageExchangeActivity
 import com.example.student_hacks.R
@@ -27,7 +28,7 @@ class MainPageActivity : AppCompatActivity() {
                     true
                 }
                 R.id.cultural_diary -> {
-                    var intent = Intent(this, CulturalDiaryActivity::class.java)
+                    var intent = Intent(this, All_my_diary::class.java)
                     startActivity(intent)
                     true
                 }
