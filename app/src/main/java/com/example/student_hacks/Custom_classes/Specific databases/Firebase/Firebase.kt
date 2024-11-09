@@ -72,6 +72,7 @@ class FirebaseDB : Database() {
                         postList = postList,
                         country = country
                     )
+                    setAllFriend()
                     setAllDiary()
                 }
             }
@@ -96,11 +97,12 @@ class FirebaseDB : Database() {
             }
     }
 
-    override fun updateDiaryContent(postId: String, title: String, content: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+    override fun updateDiaryContent(postId: String, title: String, content: String, time : String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         val newPost = hashMapOf(
             "id" to auth.currentUser!!.uid,
             "title" to title,
-            "content" to content
+            "content" to content,
+            "time" to time
         )
         if (postId.isEmpty()) {
             db.collection("post")
@@ -125,6 +127,7 @@ class FirebaseDB : Database() {
                 .addOnCompleteListener {
                         task ->
                     if (task.isSuccessful) {
+                        setAllDiary()
                         onSuccess()
                     } else {
                         onFailure(FailToAddDiaryException())
@@ -144,7 +147,8 @@ class FirebaseDB : Database() {
                         allDiary.add(Post(
                             document.id,
                             document.data!!.get("title") as String,
-                            document.data!!.get("content") as String
+                            document.data!!.get("content") as String,
+                            document.data!!.get("time") as String
                         ))
                 }
         }
@@ -157,6 +161,26 @@ class FirebaseDB : Database() {
         db.collection("profile")
             .document(user.id)
             .update(newPostList as Map<String, Any>)
+    }
+
+    fun setAllFriend() {
+        var collection = db.collection("profile")
+        for (friend in user.friendList) {
+            collection
+                .document(friend)
+                .get()
+                .addOnCompleteListener {
+                    doc ->
+                    allFriend.add(User(
+                        id = doc.result.id,
+                        age = (doc.result.get("age") as Long).toInt(),
+                        username = doc.result.get("username") as String,
+                        country = doc.result.get("country") as String,
+                        friendList = doc.result.get("friendList") as ArrayList<String>,
+                        postList = doc.result.get("postList") as ArrayList<String>,
+                    ))
+                }
+        }
     }
 
     fun createUser() {

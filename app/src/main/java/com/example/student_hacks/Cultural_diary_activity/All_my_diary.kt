@@ -28,15 +28,36 @@ class All_my_diary : AppCompatActivity() {
 
         allPostListView = findViewById(R.id.allDiaryRecycleView)
         val postAdapter = PostAdapter(this, allDiary)
+
+        postAdapter.setOnClickListener(object :
+            PostAdapter.OnClickListener {
+                override fun onClick(position: Int, post: Post) {
+                    var intent = Intent(this@All_my_diary, CulturalDiaryActivity::class.java)
+                    intent.putExtra("postId", post.id)
+                    val extras = Bundle()
+                    extras.putString("postId", post.id)
+                    extras.putString("title", post.title)
+                    extras.putString("description", post.description)
+                    intent.putExtras(extras)
+                    startActivity(intent)
+                }
+            }
+        )
         allPostListView.adapter = postAdapter
 
         val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         allPostListView.layoutManager = linearLayoutManager
 
+
+
         addNewDiaryButton = findViewById(R.id.addNewDiaryButton)
         addNewDiaryButton.setOnClickListener({
             var intent = Intent(this, CulturalDiaryActivity::class.java)
-            intent.putExtra("postId", "")
+            val extras = Bundle()
+            extras.putString("postId", "")
+            extras.putString("title", "")
+            extras.putString("description", "")
+            intent.putExtras(extras)
             startActivity(intent)
         })
     }

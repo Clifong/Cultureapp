@@ -1,6 +1,7 @@
 package com.example.student_hacks.Custom_classes.Database
 import com.example.student_hacks.Custom_classes.Post_class.Post
 import com.example.student_hacks.Custom_classes.User.User
+import java.sql.Time
 
 abstract class Database {
 
@@ -8,16 +9,18 @@ abstract class Database {
         lateinit var database : Database
         lateinit var user : User
         var allDiary : ArrayList<Post> = ArrayList()
+        var allFriend : ArrayList<User> = ArrayList()
 
         fun initDatabase(database: Database) {
             this.database = database
         }
 
-        fun updateDiaryContent(postId: String, title: String, content: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        fun updateDiaryContent(postId: String, title: String, content: String, time: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
             database.updateDiaryContent(
                 postId,
                 title,
                 content,
+                time,
                 onSuccess = {
                     onSuccess()
                 },
@@ -74,7 +77,7 @@ abstract class Database {
 
     abstract fun updateProfle(username: String, age : Int, country: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
 
-    abstract fun updateDiaryContent(postId: String, title: String, content: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
+    abstract fun updateDiaryContent(postId: String, title: String, content: String, time: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
 
     abstract fun setAllDiary()
 
