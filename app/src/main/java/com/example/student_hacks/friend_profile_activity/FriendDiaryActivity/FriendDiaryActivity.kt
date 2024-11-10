@@ -36,10 +36,11 @@ class FriendDiaryActivity : AppCompatActivity() {
             FriendPostAdapter.OnClickListener {
             override fun onClick(position: Int, post: Post) {
                 var intent = Intent(this@FriendDiaryActivity, FriendDiaryOverviewActivity::class.java)
-                intent.putExtra("postId", post.id)
                 val extras = Bundle()
+                extras.putString("postId", post.id)
                 extras.putString("title", post.title)
                 extras.putString("description", post.description)
+                extras.putStringArrayList("likedBy", post.likedBy)
                 intent.putExtras(extras)
                 startActivity(intent)
             }

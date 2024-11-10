@@ -38,6 +38,7 @@ class All_my_diary : AppCompatActivity() {
                     extras.putString("postId", post.id)
                     extras.putString("title", post.title)
                     extras.putString("description", post.description)
+                    extras.putStringArrayList("likedBy", post.likedBy)
                     intent.putExtras(extras)
                     startActivity(intent)
                 }
@@ -57,6 +58,7 @@ class All_my_diary : AppCompatActivity() {
             extras.putString("postId", "")
             extras.putString("title", "")
             extras.putString("description", "")
+            extras.putStringArrayList("likedBy", ArrayList<String>())
             intent.putExtras(extras)
             startActivity(intent)
         })

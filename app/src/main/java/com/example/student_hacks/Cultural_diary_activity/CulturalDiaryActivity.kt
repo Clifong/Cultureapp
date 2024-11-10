@@ -41,6 +41,7 @@ class CulturalDiaryActivity : AppCompatActivity() {
                 titleEditText.text.toString(),
                 contentEditText.text.toString(),
                 Calendar.getInstance().time.toString(),
+                likedBy = bundle!!.getStringArrayList("likedBy")!!,
                 onSuccess = {
                     Toast.makeText(this, "Successfully created diary!", Toast.LENGTH_SHORT).show()
                 },

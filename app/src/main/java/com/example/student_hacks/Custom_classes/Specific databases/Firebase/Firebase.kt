@@ -101,12 +101,13 @@ class FirebaseDB : Database() {
             }
     }
 
-    override fun updateDiaryContent(postId: String, title: String, content: String, time : String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+    override fun updateDiaryContent(postId: String, title: String, content: String, time : String, likedBy: ArrayList<String>, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         val newPost = hashMapOf(
             "id" to auth.currentUser!!.uid,
             "title" to title,
             "content" to content,
-            "time" to time
+            "time" to time,
+            "likedBy" to likedBy,
         )
         if (postId.isEmpty()) {
             db.collection("post")
@@ -114,6 +115,7 @@ class FirebaseDB : Database() {
                 .addOnCompleteListener {
                     task ->
                     if (task.isSuccessful) {
+                        setAllDiary()
                         onSuccess()
                     } else {
                         onFailure(FailToAddDiaryException())
@@ -152,7 +154,8 @@ class FirebaseDB : Database() {
                             document.id,
                             document.data!!.get("title") as String,
                             document.data!!.get("content") as String,
-                            document.data!!.get("time") as String
+                            document.data!!.get("time") as String,
+                            document.data!!.get("likedBy") as ArrayList<String>
                         ))
                 }
         }
@@ -198,10 +201,20 @@ class FirebaseDB : Database() {
                         document.id,
                         document.data!!.get("title") as String,
                         document.data!!.get("content") as String,
-                        document.data!!.get("time") as String
+                        document.data!!.get("time") as String,
+                        document.data!!.get("likedBy") as ArrayList<String>
                     ))
                 }
         }
+    }
+
+    override fun updateLikes(postId: String, likedBy: ArrayList<String>) {
+        var updateHashmap = hashMapOf(
+            "likedBy" to likedBy
+        )
+        db.collection("post")
+            .document(postId)
+            .update(updateHashmap as Map<String, Any>)
     }
 
     override fun setAllFriend() {

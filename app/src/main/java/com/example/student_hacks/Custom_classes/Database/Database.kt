@@ -17,12 +17,13 @@ abstract class Database {
             this.database = database
         }
 
-        fun updateDiaryContent(postId: String, title: String, content: String, time: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        fun updateDiaryContent(postId: String, title: String, content: String, time: String, likedBy: ArrayList<String>, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
             database.updateDiaryContent(
                 postId,
                 title,
                 content,
                 time,
+                likedBy,
                 onSuccess = {
                     onSuccess()
                 },
@@ -92,6 +93,10 @@ abstract class Database {
                 }
             )
         }
+
+        fun updateLikes(postId: String, likedBy: ArrayList<String>) {
+            database.updateLikes(postId, likedBy)
+        }
     }
 
     abstract fun signIn(email: String, password: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
@@ -104,13 +109,15 @@ abstract class Database {
 
     abstract fun updateProfle(username: String, age : Int, country: String, aboutMe: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
 
-    abstract fun updateDiaryContent(postId: String, title: String, content: String, time: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
+    abstract fun updateDiaryContent(postId: String, title: String, content: String, time: String, likedBy: ArrayList<String>, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
 
     abstract fun setAllDiary()
 
     abstract fun setFriendDiary(friendAllDiary: ArrayList<String>)
 
     abstract fun setAllFriend()
+
+    abstract fun updateLikes(postId: String, likedBy: ArrayList<String>)
 
     
 

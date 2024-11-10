@@ -26,6 +26,7 @@ class PostAdapter(private val context: Context, postArrayList: ArrayList<Post>) 
             val post = postArrayList[position]
             holder.diaryTitle.text = post.title
             holder.dateTitle.text = post.time
+            holder.likedBy.setText("Likes: " +  post.likedBy.size.toString())
             holder.itemView.setOnClickListener {
                 onClickListener?.onClick(position, post)
             }
@@ -46,10 +47,12 @@ class PostAdapter(private val context: Context, postArrayList: ArrayList<Post>) 
         class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val diaryTitle : TextView
             val dateTitle : TextView
+            val likedBy : TextView
 
             init {
                 diaryTitle = itemView.findViewById(R.id.diary_card_title)
                 dateTitle = itemView.findViewById(R.id.diary_card_date)
+                likedBy = itemView.findViewById(R.id.DIaryLikedByCountTextView)
             }
         }
 
