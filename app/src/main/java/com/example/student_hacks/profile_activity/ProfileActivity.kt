@@ -44,6 +44,8 @@ class ProfileActivity : AppCompatActivity() {
         aboutMeEditText = findViewById(R.id.profileAboutMeEditText)
         aboutMeEditText.setText(savedAboutMe)
 
+        aboutMeEditText.movementMethod = ScrollingMovementMethod()
+
         val allCountries = Locale.getAvailableLocales().map { it.displayCountry }.distinct()
         val allAges = (18..50).toList()
 

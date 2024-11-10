@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.student_hacks.Custom_classes.Database.Database
 import com.example.student_hacks.R
 import com.example.student_hacks.friend_profile_activity.FriendDiaryActivity.FriendDiaryActivity
 
@@ -41,13 +42,13 @@ class FriendProfileActivity : AppCompatActivity() {
         var country = bundle.get("country")
         var age = bundle.get("age")
         var aboutMe = bundle.get("aboutMe")
+        Database.setAllFriendDiary(bundle.get("postList") as ArrayList<String>)
         friendUsernameTextView.setText(username.toString())
         friendAgeTextView.setText(age.toString())
         friendCountryTextView.setText(country.toString())
         friendAboutMeTextView.setText(aboutMe.toString())
         friendDiarySeeButton.setOnClickListener({
             var intent = Intent(this, FriendDiaryActivity::class.java)
-            intent.putExtra("postList", bundle.get("postList") as ArrayList<String>)
             startActivity(intent)
         })
     }

@@ -13,9 +13,12 @@
         android:theme="@style/Theme.Student_hacks"
         tools:targetApi="31">
         <activity
-            android:name=".friend_profile_activity.FriendDiaryActivity.FriendDiaryActivity"
-            android:parentActivityName=".friend_profile_activity.FriendProfileActivity"
+            android:name=".friend_profile_activity.FriendDiaryOverview.FriendDiaryOverviewActivity"
             android:exported="false" />
+        <activity
+            android:name=".friend_profile_activity.FriendDiaryActivity.FriendDiaryActivity"
+            android:exported="false"
+            android:parentActivityName=".friend_profile_activity.FriendProfileActivity" />
         <activity
             android:name=".friend_profile_activity.FriendProfileActivity"
             android:exported="false"

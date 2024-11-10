@@ -186,6 +186,24 @@ class FirebaseDB : Database() {
             }
     }
 
+    override fun setFriendDiary(friendAllDiary: ArrayList<String>) {
+        friendDiary.clear()
+        for (id in friendAllDiary) {
+            db.collection("post")
+                .document(id)
+                .get()
+                .addOnSuccessListener {
+                        document ->
+                    friendDiary.add(Post(
+                        document.id,
+                        document.data!!.get("title") as String,
+                        document.data!!.get("content") as String,
+                        document.data!!.get("time") as String
+                    ))
+                }
+        }
+    }
+
     override fun setAllFriend() {
         var collection = db.collection("profile")
         allFriend.clear()

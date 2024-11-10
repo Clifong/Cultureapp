@@ -11,6 +11,7 @@ abstract class Database {
         var allDiary : ArrayList<Post> = ArrayList()
         var allFriend : ArrayList<User> = ArrayList()
         var nonFriend : ArrayList<User> = ArrayList()
+        var friendDiary : ArrayList<Post> = ArrayList()
 
         fun initDatabase(database: Database) {
             this.database = database
@@ -33,6 +34,14 @@ abstract class Database {
 
         fun getAllMyDiary() : ArrayList<Post> {
             return allDiary
+        }
+
+        fun setAllFriendDiary(friendALlDiaryId: ArrayList<String>) {
+            database.setFriendDiary(friendALlDiaryId)
+        }
+
+        fun getAllFriendDiary() : ArrayList<Post> {
+            return friendDiary
         }
 
         fun getAllMyFriend() : ArrayList<User> {
@@ -98,6 +107,8 @@ abstract class Database {
     abstract fun updateDiaryContent(postId: String, title: String, content: String, time: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
 
     abstract fun setAllDiary()
+
+    abstract fun setFriendDiary(friendAllDiary: ArrayList<String>)
 
     abstract fun setAllFriend()
 
