@@ -11,7 +11,7 @@ import com.example.student_hacks.R
 
 class FriendAdapter(private val context: Context, userArrayList: ArrayList<User>) : RecyclerView.Adapter<FriendAdapter.ViewHolder>() {
     private val friendArrayList: ArrayList<User>
-//    private var onClickListener: OnClickListener? = null
+    private var onClickListener: OnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendAdapter.ViewHolder {
         val view: View =
@@ -22,22 +22,22 @@ class FriendAdapter(private val context: Context, userArrayList: ArrayList<User>
     override fun onBindViewHolder(holder: FriendAdapter.ViewHolder, position: Int) {
         val user = friendArrayList[position]
         holder.friendUsernameText.text = user.username
-//        holder.itemView.setOnClickListener {
-//            onClickListener?.onClick(position, user)
-//        }
+        holder.itemView.setOnClickListener {
+            onClickListener?.onClick(position, user)
+        }
     }
 
     override fun getItemCount(): Int {
         return friendArrayList.size
     }
 
-//    fun setOnClickListener(listener: OnClickListener?) {
-//        this.onClickListener = listener
-//    }
-//
-//    interface OnClickListener {
-//        fun onClick(position: Int, post: User)
-//    }
+    fun setOnClickListener(listener: OnClickListener?) {
+        this.onClickListener = listener
+    }
+
+    interface OnClickListener {
+        fun onClick(position: Int, user: User)
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val friendUsernameText: TextView

@@ -9,9 +9,11 @@ import com.example.student_hacks.Cultural_diary_activity.All_my_diary
 import com.example.student_hacks.Cultural_diary_activity.CulturalDiaryActivity
 import com.example.student_hacks.Custom_classes.Database.Database
 import com.example.student_hacks.Custom_classes.Post_class.Post
+import com.example.student_hacks.Custom_classes.User.User
 import com.example.student_hacks.Language_exchange_activity.LanguageExchangeActivity
 import com.example.student_hacks.R
 import com.example.student_hacks.friendAdapter.FriendAdapter
+import com.example.student_hacks.friend_profile_activity.FriendProfileActivity
 import com.example.student_hacks.profile_activity.ProfileActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import layout.PostAdapter
@@ -29,8 +31,25 @@ class MainPageActivity : AppCompatActivity() {
 
         friendListRecyclerView = findViewById(R.id.friendListRecycleView)
         val friendAdapter = FriendAdapter(this, Database.getAllMyFriend())
-//
+
         friendListRecyclerView.adapter = friendAdapter
+
+        friendAdapter.setOnClickListener(object:
+            FriendAdapter.OnClickListener {
+            override fun onClick(position: Int, user: User) {
+                var intent = Intent(this@MainPageActivity, FriendProfileActivity::class.java)
+                var bundle = Bundle()
+                bundle.putString("id", user.id)
+                bundle.putString("country", user.country)
+                bundle.putInt("age", user.age)
+                bundle.putString("aboutMe", user.aboutMe)
+                bundle.putString("username", user.username)
+                bundle.putStringArrayList("postList", user.postList)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
+            }
+        )
 
         val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         friendListRecyclerView.layoutManager = linearLayoutManager
