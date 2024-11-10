@@ -22,6 +22,7 @@ class LanguageExchangeActivity : AppCompatActivity() {
     private lateinit var aboutMeTextView : TextView
     private lateinit var allNonFriend: ArrayList<User>
     private lateinit var addFriendButton: Button
+    private lateinit var boldNameTextView: TextView
 
     var counter = 0
 
@@ -40,6 +41,8 @@ class LanguageExchangeActivity : AppCompatActivity() {
         val underlinedText = SpannableString("About me")
         underlinedText.setSpan(UnderlineSpan(), 0, underlinedText.length, 0)
         aboutMeTextView.text = underlinedText
+
+        boldNameTextView = findViewById(R.id.boldNameTextLanguageExchange)
 
         addFriendButton = findViewById(R.id.addFriendButtonLanguageExchange)
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -67,12 +70,20 @@ class LanguageExchangeActivity : AppCompatActivity() {
     fun refreshProfile() {
         if (counter < allNonFriend.size) {
             addFriendButton.visibility = View.VISIBLE
+            profileUsernameTextView.visibility = View.VISIBLE
+            aboutMeTextView.visibility = View.VISIBLE
+            boldNameTextView.visibility = View.VISIBLE
+
             profileDescriptionTextView.setText(allNonFriend[counter].aboutMe)
             profileUsernameTextView.setText(allNonFriend[counter].username)
             counter += 1;
             counter %= allNonFriend.size
         } else {
+            boldNameTextView.visibility = View.INVISIBLE
             addFriendButton.visibility = View.INVISIBLE
+            profileUsernameTextView.visibility = View.INVISIBLE
+            aboutMeTextView.visibility = View.INVISIBLE
+
             profileUsernameTextView.setText("")
             profileDescriptionTextView.setText("REFRESH FOR MORE USER")
         }
