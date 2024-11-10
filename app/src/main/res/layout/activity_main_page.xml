@@ -48,51 +48,34 @@
         android:id="@+id/textView9"
         android:layout_width="391dp"
         android:layout_height="30dp"
+        android:layout_marginTop="24dp"
         android:text="Friend list:"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/friendListRecycleView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_logo" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friendListRecycleView"
-        android:layout_width="406dp"
-        android:layout_height="150dp"
-        app:layout_constraintBottom_toTopOf="@+id/allprofiles"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <!-- Available Profiles ScrollView THE NEW CODE ADDED-->
-
-    <TextView
-        android:id="@+id/allprofiles"
-        android:layout_width="398dp"
-        android:layout_height="23dp"
-        android:text="Profiles available:"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/availableProfileRecycleView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.23"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/availableProfileRecycleView"
-        android:layout_width="413dp"
-        android:layout_height="177dp"
+        android:layout_width="395dp"
+        android:layout_height="345dp"
         app:layout_constraintBottom_toTopOf="@+id/main_page_bottom_menu_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <!-- Available Profiles ScrollView THE NEW CODE ADDED-->
 
     <ImageView
         android:id="@+id/app_logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginTop="12dp"
         android:src="@drawable/appicon"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 

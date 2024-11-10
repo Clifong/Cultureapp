@@ -10,6 +10,7 @@ abstract class Database {
         lateinit var user : User
         var allDiary : ArrayList<Post> = ArrayList()
         var allFriend : ArrayList<User> = ArrayList()
+        var nonFriend : ArrayList<User> = ArrayList()
 
         fun initDatabase(database: Database) {
             this.database = database
@@ -34,6 +35,20 @@ abstract class Database {
             return allDiary
         }
 
+        fun getAllMyFriend() : ArrayList<User> {
+            return allFriend
+        }
+
+        fun getAllNonFriends() : ArrayList<User> {
+            allFriend.clear()
+            database.setAllFriend()
+            return nonFriend
+        }
+
+        fun addFried(user: User, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+            database.addFriend(user, onSuccess, onFailure)
+        }
+
         fun signUp(email: String, password: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
             database.signup(email, password,
                 onSuccess = {
@@ -54,11 +69,12 @@ abstract class Database {
                 })
         }
 
-        fun updateProfile(username: String, age : Int, country: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        fun updateProfile(username: String, age : Int, country: String, aboutMe: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
             database.updateProfle(
                 username,
                 age,
                 country,
+                aboutMe,
                 onSuccess = {
                     onSuccess()
                 },
@@ -75,11 +91,15 @@ abstract class Database {
 
     abstract fun setUser()
 
-    abstract fun updateProfle(username: String, age : Int, country: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
+    abstract fun addFriend(user: User, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
+
+    abstract fun updateProfle(username: String, age : Int, country: String, aboutMe: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
 
     abstract fun updateDiaryContent(postId: String, title: String, content: String, time: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
 
     abstract fun setAllDiary()
+
+    abstract fun setAllFriend()
 
     
 

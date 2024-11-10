@@ -28,22 +28,8 @@ class MainPageActivity : AppCompatActivity() {
         bottomMenu = findViewById(R.id.main_page_bottom_menu_bar)
 
         friendListRecyclerView = findViewById(R.id.friendListRecycleView)
-        val friendAdapter = FriendAdapter(this, Database.allFriend)
-
-//        postAdapter.setOnClickListener(object :
-//            PostAdapter.OnClickListener {
-//            override fun onClick(position: Int, post: Post) {
-//                var intent = Intent(this@All_my_diary, CulturalDiaryActivity::class.java)
-//                intent.putExtra("postId", post.id)
-//                val extras = Bundle()
-//                extras.putString("postId", post.id)
-//                extras.putString("title", post.title)
-//                extras.putString("description", post.description)
-//                intent.putExtras(extras)
-//                startActivity(intent)
-//            }
-//        }
-//        )
+        val friendAdapter = FriendAdapter(this, Database.getAllMyFriend())
+//
         friendListRecyclerView.adapter = friendAdapter
 
         val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

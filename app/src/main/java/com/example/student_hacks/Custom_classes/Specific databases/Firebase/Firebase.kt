@@ -2,6 +2,7 @@ package com.example.student_hacks.Custom_classes.Specific
 
 import com.example.student_hacks.Custom_classes.Database.Database
 import com.example.student_hacks.Custom_classes.Exceptions.FailToAddDiaryException
+import com.example.student_hacks.Custom_classes.Exceptions.FailToAddUserException
 import com.example.student_hacks.Custom_classes.Exceptions.FailToUpdateProfileException
 import com.example.student_hacks.Custom_classes.Exceptions.SignInFailException
 import com.example.student_hacks.Custom_classes.Exceptions.SignUpFailException
@@ -62,6 +63,7 @@ class FirebaseDB : Database() {
                     val age = (document.result.get("age") as Long).toInt()
                     val username = document.result.get("username") as String
                     val country = document.result.get("country") as String
+                    val aboutMe = document.result.get("aboutMe") as String
                     val friendList = document.result.get("friendList") as ArrayList<String>
                     val postList = document.result.get("postList") as ArrayList<String>
                     user = User(
@@ -70,7 +72,8 @@ class FirebaseDB : Database() {
                         username = username,
                         friendList = friendList,
                         postList = postList,
-                        country = country
+                        country = country,
+                        aboutMe = aboutMe
                     )
                     setAllFriend()
                     setAllDiary()
@@ -78,11 +81,12 @@ class FirebaseDB : Database() {
             }
     }
 
-    override fun updateProfle(username: String, age: Int, country: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+    override fun updateProfle(username: String, age: Int, country: String, aboutMe: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         val toUpdate = hashMapOf(
             "username" to username,
             "age" to age,
-            "country" to country
+            "country" to country,
+            "aboutMe" to aboutMe,
         )
         db.collection("profile")
             .document(user.id)
@@ -163,24 +167,52 @@ class FirebaseDB : Database() {
             .update(newPostList as Map<String, Any>)
     }
 
-    fun setAllFriend() {
-        var collection = db.collection("profile")
-        for (friend in user.friendList) {
-            collection
-                .document(friend)
-                .get()
-                .addOnCompleteListener {
-                    doc ->
-                    allFriend.add(User(
-                        id = doc.result.id,
-                        age = (doc.result.get("age") as Long).toInt(),
-                        username = doc.result.get("username") as String,
-                        country = doc.result.get("country") as String,
-                        friendList = doc.result.get("friendList") as ArrayList<String>,
-                        postList = doc.result.get("postList") as ArrayList<String>,
-                    ))
+    override fun addFriend(addUser: User, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        user.friendList.add(addUser.id)
+        val newUserValue = hashMapOf(
+            "friendList" to user.friendList,
+        )
+        db.collection("profile")
+            .document(user.id)
+            .update(newUserValue as Map<String, Any>)
+            .addOnCompleteListener {
+                task ->
+                if (task.isSuccessful) {
+                    setAllFriend()
+                    onSuccess()
+                } else {
+                    onFailure(FailToAddUserException())
                 }
-        }
+            }
+    }
+
+    override fun setAllFriend() {
+        var collection = db.collection("profile")
+        allFriend.clear()
+        nonFriend.clear()
+        collection
+            .get()
+            .addOnSuccessListener {
+                    result ->
+                for (doc in result) {
+                    var currentUser = User(
+                        id = doc.id,
+                        age = (doc.get("age") as Long).toInt(),
+                        username = doc.get("username") as String,
+                        country = doc.get("country") as String,
+                        aboutMe = doc.get("aboutMe") as String,
+                        friendList = doc.get("friendList") as ArrayList<String>,
+                        postList = doc.get("postList") as ArrayList<String>,
+                    )
+                    if (user.friendList.contains(doc.id)) {
+                        allFriend.add(currentUser)
+                    } else {
+                        if (doc.id != user.id) {
+                            nonFriend.add(currentUser)
+                        }
+                    }
+                }
+            }
     }
 
     fun createUser() {
@@ -189,6 +221,7 @@ class FirebaseDB : Database() {
             "username" to auth.currentUser!!.email,
             "country" to "Canada",
             "age" to 21,
+            "aboutMe" to "Add more info about yourself!",
             "friendList" to listOf<String>(),
             "postList" to listOf<String>()
         )

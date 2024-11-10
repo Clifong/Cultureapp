@@ -1,6 +1,7 @@
 package com.example.student_hacks.profile_activity
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -16,6 +17,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var ageSpinner : Spinner
     private lateinit var countrySpinner : Spinner
     private lateinit var usernameEditText : EditText
+    private lateinit var aboutMeEditText : EditText
     private lateinit var saveProfileButton : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +29,10 @@ class ProfileActivity : AppCompatActivity() {
 
         usernameEditText = findViewById(R.id.profileUsernameEditText)
         usernameEditText.setText(Database.user.username)
+
+        aboutMeEditText = findViewById(R.id.profileAboutMeEditText)
+        aboutMeEditText.movementMethod = ScrollingMovementMethod()
+        aboutMeEditText.setText(Database.user.aboutMe)
 
         var locales = Locale.getAvailableLocales()
         var allCountries = ArrayList<String>()
@@ -40,7 +46,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         ageSpinner = findViewById(R.id.ageSpinner)
-        ageSpinner.setSelection(ageSpinner.adapter.getItem(Database.user.age) as Int)
+//        ageSpinner.setSelection(ageSpinner.adapter.getItem(Database.user.age) as Int)
 
         countrySpinner = findViewById(R.id.countrySpinner)
 //        countrySpinner.setSelection(countrySpinner.getSe)
@@ -54,6 +60,7 @@ class ProfileActivity : AppCompatActivity() {
                 username = usernameEditText.text.toString(),
                 age = ageSpinner.selectedItem as Int,
                 country = countrySpinner.selectedItem as String,
+                aboutMe = aboutMeEditText.text.toString(),
                 onSuccess = {
                     Toast.makeText(this, "Successfully updated profile!", Toast.LENGTH_SHORT).show()
                 },
