@@ -1,17 +1,30 @@
 package com.example.student_hacks.Custom_classes.User
 
-import kotlinx.serialization.Serializable
+class User : java.io.Serializable {
 
-@Serializable
-data class User(
-    val id: String,
-    val age: Int,
-    val username: String,
-    val aboutMe : String,
-    val country : String,
-    val friendList: ArrayList<String>,
-    val postList: ArrayList<String>,
-) {
+    var id: String = ""
+    var age: Int = 21
+    var username: String = ""
+    var aboutMe : String = ""
+    var country : String = ""
+    var friendList: ArrayList<String> = ArrayList<String>()
+    var postList: ArrayList<String> = ArrayList<String>()
+
+    constructor(id: String,
+                age: Int,
+                username: String,
+                aboutMe: String,
+                country: String,
+                friendList: ArrayList<String>,
+                postList: ArrayList<String>) {
+        this.id = id
+        this.age = age
+        this.username = username
+        this.aboutMe = aboutMe
+        this.country = country
+        this.friendList = friendList
+        this.postList = postList
+    }
 
 }
 

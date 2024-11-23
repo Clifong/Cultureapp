@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.student_hacks.Custom_classes.Database.Database
+import com.example.student_hacks.Custom_classes.User.User
 import com.example.student_hacks.R
 import com.example.student_hacks.friend_profile_activity.FriendDiaryActivity.FriendDiaryActivity
 
@@ -22,6 +23,16 @@ class FriendProfileActivity : AppCompatActivity() {
     private lateinit var friendAgeTextView: TextView
     private lateinit var friendAboutMeTextView: TextView
     private lateinit var friendDiarySeeButton: Button
+    private lateinit var user: User
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        println(requestCode)
+        println(resultCode)
+        if (resultCode == RESULT_OK && data != null) {
+            user = data.getSerializableExtra("user") as User
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,19 +47,18 @@ class FriendProfileActivity : AppCompatActivity() {
         friendAboutMeTextView = findViewById(R.id.friendAboutMeTextView)
         friendDiarySeeButton = findViewById(R.id.friendDiaryButton)
 
-        var bundle = intent.extras!!
+        if (intent.hasExtra("user")) {
+            user = intent.getSerializableExtra("user") as User
+        }
 
-        var username = bundle.get("username")
-        var country = bundle.get("country")
-        var age = bundle.get("age")
-        var aboutMe = bundle.get("aboutMe")
-        Database.setAllFriendDiary(bundle.get("postList") as ArrayList<String>)
-        friendUsernameTextView.setText(username.toString())
-        friendAgeTextView.setText(age.toString())
-        friendCountryTextView.setText(country.toString())
-        friendAboutMeTextView.setText(aboutMe.toString())
+        Database.setAllFriendDiary(user.postList)
+        friendUsernameTextView.setText(user.username)
+        friendAgeTextView.setText(user.age.toString())
+        friendCountryTextView.setText(user.country)
+        friendAboutMeTextView.setText(user.country)
         friendDiarySeeButton.setOnClickListener({
             var intent = Intent(this, FriendDiaryActivity::class.java)
+            intent.putExtra("user", user)
             startActivity(intent)
         })
     }

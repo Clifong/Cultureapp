@@ -1,4 +1,5 @@
 package com.example.student_hacks.Custom_classes.Database
+import com.example.student_hacks.Custom_classes.Message_class.Message
 import com.example.student_hacks.Custom_classes.Post_class.Post
 import com.example.student_hacks.Custom_classes.User.User
 import java.sql.Time
@@ -12,6 +13,8 @@ abstract class Database {
         var allFriend : ArrayList<User> = ArrayList()
         var nonFriend : ArrayList<User> = ArrayList()
         var friendDiary : ArrayList<Post> = ArrayList()
+        var myMessage : ArrayList<Message> = ArrayList()
+        var otherPartyMessage : ArrayList<Message> = ArrayList()
 
         fun initDatabase(database: Database) {
             this.database = database
@@ -97,6 +100,16 @@ abstract class Database {
         fun updateLikes(postId: String, likedBy: ArrayList<String>) {
             database.updateLikes(postId, likedBy)
         }
+
+        fun getAllMessage(otherPartyId: String) : ArrayList<Message> {
+            database.setOtherPartyMessage(otherPartyId)
+            var message = ArrayList<Message>()
+            myMessage.addAll(otherPartyMessage)
+            myMessage.sortBy {
+                msg -> msg.time
+            }
+            return myMessage
+        }
     }
 
     abstract fun signIn(email: String, password: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit)
@@ -119,6 +132,7 @@ abstract class Database {
 
     abstract fun updateLikes(postId: String, likedBy: ArrayList<String>)
 
+    abstract fun setOtherPartyMessage(otherPartyId: String)
     
 
 }

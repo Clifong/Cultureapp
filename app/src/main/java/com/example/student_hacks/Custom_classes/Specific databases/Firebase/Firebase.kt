@@ -6,6 +6,7 @@ import com.example.student_hacks.Custom_classes.Exceptions.FailToAddUserExceptio
 import com.example.student_hacks.Custom_classes.Exceptions.FailToUpdateProfileException
 import com.example.student_hacks.Custom_classes.Exceptions.SignInFailException
 import com.example.student_hacks.Custom_classes.Exceptions.SignUpFailException
+import com.example.student_hacks.Custom_classes.Message_class.Message
 import com.example.student_hacks.Custom_classes.Post_class.Post
 import com.example.student_hacks.Custom_classes.User.User
 import com.google.firebase.Firebase
@@ -215,6 +216,37 @@ class FirebaseDB : Database() {
         db.collection("post")
             .document(postId)
             .update(updateHashmap as Map<String, Any>)
+    }
+
+    override fun setOtherPartyMessage(otherPartyId: String) {
+        var collection = db.collection("message")
+        collection
+            .get()
+            .addOnSuccessListener {
+                result ->
+                for (doc in result) {
+                    if (doc.get("myId") == user.id && doc.get("otherPartyId") == otherPartyId) {
+                        var messageArray = doc.get("message") as ArrayList<Map<String, String>>
+                        for (map in messageArray) {
+                            myMessage.add(Message(
+                                myMessage = true,
+                                text = map["text"]!!,
+                                time = map["time"]!!
+                            ))
+                        }
+                    } else if (doc.get("myId") == otherPartyId && doc.get("otherPartyId") == user.id) {
+                    }
+                        var messageArray = doc.get("message") as ArrayList<Map<String, String>>
+                        for (map in messageArray) {
+                            otherPartyMessage.add(Message(
+                                myMessage = false,
+                                text = map["text"]!!,
+                                time = map["time"]!!
+                            ))
+                        }
+                    )
+                }
+            }
     }
 
     override fun setAllFriend() {

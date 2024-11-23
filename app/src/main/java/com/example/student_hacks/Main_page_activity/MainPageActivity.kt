@@ -6,17 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.student_hacks.Cultural_diary_activity.All_my_diary
-import com.example.student_hacks.Cultural_diary_activity.CulturalDiaryActivity
 import com.example.student_hacks.Custom_classes.Database.Database
-import com.example.student_hacks.Custom_classes.Post_class.Post
 import com.example.student_hacks.Custom_classes.User.User
 import com.example.student_hacks.Language_exchange_activity.LanguageExchangeActivity
 import com.example.student_hacks.R
+import com.example.student_hacks.Chat_activity.ChatActivity
 import com.example.student_hacks.friendAdapter.FriendAdapter
 import com.example.student_hacks.friend_profile_activity.FriendProfileActivity
 import com.example.student_hacks.profile_activity.ProfileActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import layout.PostAdapter
 
 class MainPageActivity : AppCompatActivity() {
 
@@ -38,14 +36,7 @@ class MainPageActivity : AppCompatActivity() {
             FriendAdapter.OnClickListener {
             override fun onClick(position: Int, user: User) {
                 var intent = Intent(this@MainPageActivity, FriendProfileActivity::class.java)
-                var bundle = Bundle()
-                bundle.putString("id", user.id)
-                bundle.putString("country", user.country)
-                bundle.putInt("age", user.age)
-                bundle.putString("aboutMe", user.aboutMe)
-                bundle.putString("username", user.username)
-                bundle.putStringArrayList("postList", user.postList)
-                intent.putExtras(bundle)
+                intent.putExtra("user", user)
                 startActivity(intent)
             }
             }
@@ -73,6 +64,11 @@ class MainPageActivity : AppCompatActivity() {
                 }
                 R.id.profile -> {
                     var intent = Intent(this, ProfileActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.chat -> {
+                    var intent = Intent(this, ChatActivity::class.java)
                     startActivity(intent)
                     true
                 }
