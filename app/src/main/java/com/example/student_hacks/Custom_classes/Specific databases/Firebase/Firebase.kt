@@ -244,7 +244,6 @@ class FirebaseDB : Database() {
                                 time = map["time"]!!
                             ))
                         }
-                    )
                 }
             }
     }
