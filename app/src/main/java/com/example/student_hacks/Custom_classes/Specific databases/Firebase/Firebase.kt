@@ -13,6 +13,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 
 class FirebaseDB : Database() {
@@ -218,34 +219,57 @@ class FirebaseDB : Database() {
             .update(updateHashmap as Map<String, Any>)
     }
 
-    override fun setOtherPartyMessage(otherPartyId: String) {
+    override fun addMessage(userId: String, content: String, time: String) {
+        var collection = db.collection("message")
+        var timeToMessage = mapOf<String, String>(time to content)
+        var messageToAdd = hashMapOf(
+            "myId" to user.id,
+            "otherPartyId" to userId,
+            "message" to timeToMessage
+        )
+        collection
+            .document(user.id + userId)
+            .set(messageToAdd, SetOptions.merge())
+    }
+
+    override fun setMessage(otherPartyId: String) {
         var collection = db.collection("message")
         collection
+            .document(user.id + otherPartyId)
             .get()
-            .addOnSuccessListener {
-                result ->
-                for (doc in result) {
-                    if (doc.get("myId") == user.id && doc.get("otherPartyId") == otherPartyId) {
-                        var messageArray = doc.get("message") as ArrayList<Map<String, String>>
-                        for (map in messageArray) {
-                            myMessage.add(Message(
+            .addOnSuccessListener { result ->
+                if (result["doc"] != null) {
+                    myMessage.clear()
+                    var messageMap = result.get("message") as Map<String, String>
+                    for (entry in messageMap) {
+                        myMessage.add(
+                            Message(
                                 myMessage = true,
-                                text = map["text"]!!,
-                                time = map["time"]!!
-                            ))
-                        }
-                    } else if (doc.get("myId") == otherPartyId && doc.get("otherPartyId") == user.id) {
+                                text = entry.value!!,
+                                time = entry.key!!
+                            )
+                        )
                     }
-                        var messageArray = doc.get("message") as ArrayList<Map<String, String>>
-                        for (map in messageArray) {
-                            otherPartyMessage.add(Message(
-                                myMessage = false,
-                                text = map["text"]!!,
-                                time = map["time"]!!
-                            ))
-                        }
                 }
             }
+
+        collection
+            .document(otherPartyId + user.id)
+            .get()
+            .addOnSuccessListener { result ->
+                if (result["doc"] != null) {
+                    otherPartyMessage.clear()
+                    var messageMap = result.get("message") as Map<String, String>
+                    for (entry in messageMap) {
+                        otherPartyMessage.add(Message(
+                            myMessage = false,
+                            text = entry.value!!,
+                            time = entry.key!!
+                        ))
+                    }
+                }
+            }
+
     }
 
     override fun setAllFriend() {

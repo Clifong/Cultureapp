@@ -3,6 +3,7 @@ import com.example.student_hacks.Custom_classes.Message_class.Message
 import com.example.student_hacks.Custom_classes.Post_class.Post
 import com.example.student_hacks.Custom_classes.User.User
 import java.sql.Time
+import java.util.Calendar
 
 abstract class Database {
 
@@ -102,13 +103,17 @@ abstract class Database {
         }
 
         fun getAllMessage(otherPartyId: String) : ArrayList<Message> {
-            database.setOtherPartyMessage(otherPartyId)
-            var message = ArrayList<Message>()
+            database.setMessage(otherPartyId)
             myMessage.addAll(otherPartyMessage)
             myMessage.sortBy {
                 msg -> msg.time
             }
             return myMessage
+        }
+
+        fun addMessage(userId: String, content: String) {
+            database.addMessage(userId, content, Calendar.getInstance().time.toString())
+            getAllMessage(userId)
         }
     }
 
@@ -132,7 +137,9 @@ abstract class Database {
 
     abstract fun updateLikes(postId: String, likedBy: ArrayList<String>)
 
-    abstract fun setOtherPartyMessage(otherPartyId: String)
+    abstract fun setMessage(otherPartyId: String)
+
+    abstract fun addMessage(userId: String, content: String, time: String)
     
 
 }

@@ -1,6 +1,5 @@
 package com.example.student_hacks.Chat_activity.MessageAdapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -11,15 +10,14 @@ import com.example.student_hacks.Custom_classes.Message_class.Message
 import com.example.student_hacks.R
 
 class MessageAdapter(private val context: Context, messageArrayList: ArrayList<Message>) : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
-    private val messageArrayList: ArrayList<Message>
+    private var messageArrayList: ArrayList<Message>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.friend_card_view, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.message_card_view, parent, false)
         return ViewHolder(view)
     }
 
-    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val msg = messageArrayList[position]
         holder.messageText.text = msg.text
@@ -41,6 +39,10 @@ class MessageAdapter(private val context: Context, messageArrayList: ArrayList<M
             messageText = itemView.findViewById(R.id.messageTextView)
             messageDateText = itemView.findViewById(R.id.messageDateTextView)
         }
+    }
+
+    fun updateMessage(messageArrayList: ArrayList<Message>) {
+        this.messageArrayList = messageArrayList
     }
 
     init {
